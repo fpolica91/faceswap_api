@@ -1,0 +1,16 @@
+roopvenv
+models/*
+.venv
+temp_images/*
+temp_videos/*
+*.ipynb
+*/*/*/__pycache__
+*/*/__pycache__
+.idea
+__pycache__
+roop/models/*
+roop/__pycache__
+gfpgan/
+roop/gfpgan
+roop/models
+roop/models/*
