@@ -14,3 +14,4 @@ gfpgan/
 roop/gfpgan
 roop/models
 roop/models/*
+roop/content/*

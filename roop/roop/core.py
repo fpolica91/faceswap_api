@@ -45,7 +45,9 @@ def parse_parameters(source_path=None, target_path=None, output_path=None, frame
     roop.globals.output_video_encoder = 'libx264'
     roop.globals.output_video_quality = 1
     roop.globals.max_memory = None
-    roop.globals.execution_providers = ['cuda']
+    execution_provider = decode_execution_providers(['cuda'])
+    print(execution_provider, 'execution_provider')
+    roop.globals.execution_providers = execution_provider
     roop.globals.execution_threads = 8
 
     for key, value in kwargs.items():
@@ -96,7 +98,6 @@ def parse_args() -> None:
                          version=f'{roop.metadata.name} {roop.metadata.version}')
 
     args = program.parse_args()
-    print(args, "the arguments!!!!!!!!!!!!!!!!!!!!!!!!!!!11")
 
     roop.globals.source_path = args.source_path
     roop.globals.target_path = args.target_path
@@ -269,20 +270,20 @@ def run_api(source_path: str, target_path: str, output_path: str, frame_processo
     for frame_processor in get_frame_processors_modules(roop.globals.frame_processors):
         if not frame_processor.pre_check():
             return
-    # limit_resources()
+    limit_resources()
     start()
 
 
-def run() -> None:
-    parse_args()
-    if not pre_check():
-        return
-    for frame_processor in get_frame_processors_modules(roop.globals.frame_processors):
-        if not frame_processor.pre_check():
-            return
-    limit_resources()
-    if roop.globals.headless:
-        start()
-    else:
-        window = ui.init(start, destroy)
-        window.mainloop()
+# def run() -> None:
+#     parse_args()
+#     if not pre_check():
+#         return
+#     for frame_processor in get_frame_processors_modules(roop.globals.frame_processors):
+#         if not frame_processor.pre_check():
+#             return
+#     limit_resources()
+#     if roop.globals.headless:
+#         start()
+#     else:
+#         window = ui.init(start, destroy)
+#         window.mainloop()

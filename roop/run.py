@@ -30,27 +30,9 @@ def faceswap(image: UploadFile = File(...), video: UploadFile = File(...)):
             target_path = temp_video.name
             output_path = os.path.join(os.path.dirname(
                 __file__), 'content', unique_file_path)
-        # print(source_path, target_path, output_path)
         core.run_api(source_path, target_path, output_path,
                      frame_processor=["face_swapper", "face_enhancer"])
+        return JSONResponse(status_code=200, content={"message": "Success", "file": unique_file_path})
     except Exception as e:
         logging.error(e)
         return JSONResponse(status_code=400, content={"message": "Error in reading the files"})
-
-
-# if __name__ == '__main__':
-#     # core.run()
-#     try:
-#         source_path = os.path.join(os.path.dirname(
-#             os.path.dirname(__file__)), 'temp_images', 'test1.png')
-
-#         target_path = os.path.join(os.path.dirname(
-#             os.path.dirname(__file__)), 'temp_videos', 'test1.mp4')
-#         output_path = os.path.join(os.path.dirname(
-#             os.path.dirname(__file__)), 'content')
-#         core.run_api(source_path, target_path, output_path,
-#                      frame_processor=["face_swapper", "face_enhancer"])
-#     except Exception as e:
-#         print(e)
-#         print('Error in running the code')
-#         exit(1)
