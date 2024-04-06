@@ -1,6 +1,7 @@
 roopvenv
 models/*
 .venv
+venv
 temp_images/*
 temp_videos/*
 *.ipynb

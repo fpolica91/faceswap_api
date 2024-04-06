@@ -46,7 +46,7 @@ def parse_parameters(source_path=None, target_path=None, output_path=None, frame
     roop.globals.output_video_quality = 1
     roop.globals.max_memory = None
     execution_provider = decode_execution_providers(['cuda'])
-    print(execution_provider, 'execution_provider')
+
     roop.globals.execution_providers = execution_provider
     roop.globals.execution_threads = 8
 
@@ -105,7 +105,6 @@ def parse_args() -> None:
         roop.globals.source_path, roop.globals.target_path, args.output_path)
     roop.globals.headless = roop.globals.source_path is not None and roop.globals.target_path is not None and roop.globals.output_path is not None
     roop.globals.frame_processors = args.frame_processor
-    print(roop.globals.frame_processors, 'frame_processors')
     roop.globals.keep_fps = args.keep_fps
     roop.globals.keep_frames = args.keep_frames
     roop.globals.skip_audio = args.skip_audio
@@ -266,8 +265,10 @@ def run_api(source_path: str, target_path: str, output_path: str, frame_processo
     parse_parameters(source_path, target_path, output_path,
                      frame_processor, **kwargs)
     if not pre_check():
+        print('pre_check failed')
         return
     for frame_processor in get_frame_processors_modules(roop.globals.frame_processors):
+        print(frame_processor, 'frame_processor')
         if not frame_processor.pre_check():
             return
     limit_resources()

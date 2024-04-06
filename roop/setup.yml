@@ -1,0 +1,10 @@
+---
+- name: Setup Python env with Micromamba
+  hosts: localhost
+  become: false
+  tasks:
+    - name: Install conda dependencies with Micromamba
+      ansible.builtin.shell: >
+        micromamba install python=3.11.6 -n face_api numpy onnx psutil tk pillow protobuf tqdm fastapi uvicorn pip -c conda-forge && \
+        micromamba run -n face_api pip install torch torchvision torchaudio tensorflow==2.16.1 onnxruntime-gpu==1.17.1 customtkinter==5.2.0 opencv-python==4.8.0.74 insightface==0.7.3 gfpgan==1.3.8 opennsfw2==0.10.2 tkinterdnd2 python-multipart && \
+        micromamba install cudatoolkit=11.0 cudnn -c conda-forge
